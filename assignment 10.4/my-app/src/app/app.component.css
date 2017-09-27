@@ -1,0 +1,36 @@
+/* styles of form input on valid and invalid */
+
+form {
+  margin: 50px 0 0 0;
+  border: 2px solid #cccccc;
+  padding: 30px;
+}
+
+section .panel {
+  margin: 50px 0 0 0;
+}
+
+
+/* input.ng-invalid.ng-touched {
+  border: 1px solid red;
+}
+
+input.ng-valid.ng-touched {
+  border: 1px solid green;
+}
+
+select.ng-touched.ng-invalid{
+  border: 1px solid red;
+}
+
+select.ng-touched.ng-valid{
+  border: 1px solid green;
+} */
+
+.inValid {
+  border: 1px solid red;
+}
+
+.valid {
+  border: 1px solid green;
+}

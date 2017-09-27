@@ -1,0 +1,66 @@
+<!-- Form with three inputs and one dropdown which intializes with data from service on intialization and validates with min and maxlength-->
+<section class="container">
+  <!-- ngSubmit calls the function onSubmit on submitting the form  -->
+  <form class="form-horizontal" (ngSubmit)='onSubmit()' [formGroup]='courseForm'>
+    <div class="form-group">
+      <label for="inputUsername" class="col-sm-2 control-label">Username</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputUsername" placeholder="Enter three digit numbers only" formControlName="username" name="name"
+          [ngClass]="{inValid: !courseForm.get('username').valid && courseForm.get('username').touched, valid: courseForm.get('username').valid && courseForm.get('username').touched}">
+        <span class="help-block" *ngIf="!courseForm.get('username').valid && courseForm.get('username').touched">Please enter a valid username</span>
+      </div>
+    </div>
+    <!-- username input ends here -->
+    <div class="form-group">
+      <label for="inputEmail" class="col-sm-2 control-label">Email</label>
+      <div class="col-sm-10">
+        <!-- CSS class applied based on validation -->
+        <input type="email" class="form-control" id="inputEmail" placeholder="Email" formControlName="email" name="email" [ngClass]="{inValid: !courseForm.get('email').valid && courseForm.get('email').touched, valid: courseForm.get('email').valid && courseForm.get('email').touched}">
+        <span class="help-block" *ngIf="!courseForm.get('email').valid && courseForm.get('email').touched">Please Enter a valid email</span>
+      </div>
+    </div>
+    <!-- email input ends here -->
+    <div class="form-group">
+      <label for="inputAddress" class="col-sm-2 control-label">Address</label>
+      <div class="col-sm-10">
+        <input type="text" class="form-control" id="inputAddress" placeholder="Your Address" formControlName="address" name="address"
+          [ngClass]="{inValid: !courseForm.get('address').valid && courseForm.get('address').touched, valid: courseForm.get('address').valid && courseForm.get('address').touched}">
+        <!--Display error message on MinLength and MaxLength Validation-->
+        <span class="help-block" *ngIf="courseForm.get('address')?.errors?.required && courseForm.get('address').touched">Please Enter Your Address</span>
+        <span class="help-block" *ngIf="(courseForm.get('address')?.errors?.minlength?.requiredLength !== courseForm.get('address')?.errors?.minlength?.actualLength) && courseForm.get('address')?.touched">Address should be at least 10 characters long</span>
+      </div>
+    </div>
+    <!-- address input ends here -->
+    <div class="form-group">
+      <label for="sel1" class="col-sm-2 control-label">Choose Course</label>
+      <div class="col-sm-10">
+        <select class="form-control" id="sel1" formControlName="select" [(ngModel)]="selectedOption" name="select" [ngClass]="{inValid: !courseForm.get('select').valid && courseForm.get('select').touched, valid: courseForm.get('select').valid && courseForm.get('select').touched}">
+          <option [value]="selectedOption" [disabled]="true">Choose Your Course</option>
+          <option *ngFor="let data of dropDownArr; index as i"  [ngValue]="data.course">{{data.course}}</option>          
+        </select>
+        <span class="help-block" *ngIf="!courseForm.get('select').valid && courseForm.get('select').touched">Please choose a Course</span>
+      </div>
+    </div>
+    <!-- select input ends here -->
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-10">
+        <button type="submit" class="btn btn-default" [disabled]=!courseForm.valid>Submit</button>
+        <button type="button" class="btn btn-default" (click)="resetForm(f)">Reset</button>
+      </div>
+    </div>
+    <!-- submit and reset buttons ends here -->
+  </form>
+</section>
+<!-- section displays the submited form data in the view -->
+<section class="container">
+  <div class="panel panel-default">
+    <div class="panel-heading">Registered users</div>
+
+    <!-- List group -->
+    <ul class="list-group">
+      <li class="list-group-item" *ngFor="let person of personsList">username:&nbsp;&nbsp;{{person.name}} &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; email:&nbsp;&nbsp;{{person.email}}
+        &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp; Address: &nbsp;&nbsp;{{person.address}} &nbsp;&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;&nbsp;
+        Course Chosen: &nbsp;&nbsp;{{person.chosenCourse}}</li>
+    </ul>
+  </div>
+</section>
